@@ -47,9 +47,8 @@ function HousingBot.OnUpdate()
         if (ml_task_hub:CurrentTask()) then
             
             if (IsControlOpen('HousingSelectBlock')) then
-               -- check each ward for open houses. 
+                
             else
-                -- move the character to a housing ward
 
 
             end
@@ -347,6 +346,7 @@ function e_scanhousingwards:execute()
                         local textmsg = "Open House Found:\nLocale: "..totalHouseData.locale.."\nSize: "..totalHouseData.plotSize.."\nWard: "..totalHouseData.wardNumber.."\nPlot: "..totalHouseData.plotNumber.."\nPrice: "..totalHouseData.price
                         d(textmsg)
                         HousingBotNetwork.SendDiscordMessage(textmsg)
+                        HousingBotNetwork.AddHouse(totalHouseData)
                         table.insert(openHouses, totalHouseData)
                     end
                 end

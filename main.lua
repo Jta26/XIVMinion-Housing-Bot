@@ -54,12 +54,5 @@ function FayeHousing.OnUpdateHandler(event,ticks)
     end
 end
 
--- checks if the current hour is at the top of the hour. i.e. 5:00
-function FayeHousing.IsAtHour()
-
-
-
-end
-
 RegisterEventHandler("Gameloop.Draw", FayeHousing.Draw, "FayeHousing-Draw")
 RegisterEventHandler("Gameloop.Update", FayeHousing.OnUpdateHandler)
