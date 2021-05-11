@@ -1,0 +1,6 @@
+[Module]
+Name=FayeHousing
+Version=1
+Files=main.lua,network.lua,housing.lua
+Dependencies=minionlib
+Enabled=1
