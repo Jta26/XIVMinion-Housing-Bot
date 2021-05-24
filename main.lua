@@ -31,7 +31,7 @@ function FayeHousing.OnUpdateHandler(event,ticks)
         -- taken from ffxiv_helpers.lua cause I dont need the entire date every time this function is called.
         local currentTimeMin = tonumber(os.date("!%M"))
         if (TimeSince(FayeHousing.lastRunTime) > 900000) then
-            if (currentTimeMin == 00) then
+            if (currentTimeMin == 01) then
                 if (FFXIV_Common_BotRunning) then
                     if (not IsInCombat()) then
                         if (gBotMode ~= "CheckHousing") then
