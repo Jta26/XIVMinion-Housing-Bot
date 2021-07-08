@@ -360,7 +360,11 @@ function e_scanhousingwards:execute()
                 local totalHouseData = {locale = currentLocale.name, wardNumber = wardNumber, plotNumber = plotNumber, plotSize = plotSize, price = house.value}
                 local textmsg = "Open House Found:\nLocale: "..totalHouseData.locale.."\nSize: "..totalHouseData.plotSize.."\nWard: "..totalHouseData.wardNumber.."\nPlot: "..totalHouseData.plotNumber.."\nPrice: "..totalHouseData.price
                 d(textmsg)
-                if (gCHReportSmalls) then
+                if (not gCHReportSmalls) then
+                    if (plotSize ~= "Small") then
+                        HousingBotNetwork.SendDiscordMessage(textmsg)
+                    end
+                else
                     HousingBotNetwork.SendDiscordMessage(textmsg)
                 end
                 HousingBotNetwork.AddHouse(totalHouseData)
