@@ -35,6 +35,11 @@ function HousingBot.ResolveHouseSignature(signature)
     end
 end
 
+function HousingBot.AlertGoogleHome()
+    local luamodpath = GetLuaModsPath();
+    local filePath = luamodpath .. "FayeHousing\\node\\casting.js";
+    p = io.popen("node " .. filePath)
+end
 
 
 function HousingBot.ModuleInit()
@@ -89,6 +94,7 @@ function ffxiv_task_check_housing:UIInit()
     gCHKugane = ffxivminion.GetSetting('gCHKugane', true)
     gCHReportSmalls = ffxivminion.GetSetting('gCHReportSmalls', true)
     gCHScanSpeed = ffxivminion.GetSetting('gCHScanSpeed', 750)
+    gCHAlertSmalls = ffxivminion.GetSetting('gCHAlertSmalls', false)
     CHRandomIdle = ffxivminion.GetSetting('CHRandomIdle', true)
     self.GUI.main_tabs = GUI_CreateTabs("Options",false)
 end
@@ -130,6 +136,8 @@ function ffxiv_task_check_housing:Draw()
         GUI:EndChild()
         GUI:Text("Report Smalls?")
         GUI_Capture(GUI:Checkbox("##CHReportSmalls",gCHReportSmalls),"gCHReportSmalls")
+        GUI:Text("Alert Smalls?")
+        GUI_Capture(GUI:Checkbox("##CHAlertSmalls",gCHAlertSmalls),"gCHAlertSmalls")
         GUI:Columns(2)
         GUI:AlignFirstTextHeightToWidgets() GUI:Text("Teleport to random hub aetheryte when scan complete.")
         GUI:NextColumn()
@@ -353,6 +361,7 @@ function e_scanhousingwards:execute()
                 for token in string.gmatch(houseNumberData, "[^%s]+") do
                     table.insert(plotChunks, token)
                 end
+
                 local plotNumber = plotChunks[1]
                 local plotSizeBytes = plotChunks[2]
                 local houseSignature = HousingBot.HouseSizeSignature(plotSizeBytes)
@@ -368,10 +377,11 @@ function e_scanhousingwards:execute()
                 else
                     HousingBotNetwork.SendDiscordMessage(textmsg)
                 end
+                if (gCHAlertSmalls) then
+                    Housing.AlertGoogleHome()
+                end
                 if (plotSize == "Medium") then
-                    local luamodpath = GetLuaModsPath();
-                    local filePath = luamodpath .. "FayeHousing\\node\\casting.js";
-                    p = io.popen("node ".. filePath);
+                    Housing.AlertGoogleHome()
                 end
                 table.insert(openHouses, totalHouseData)
             end
