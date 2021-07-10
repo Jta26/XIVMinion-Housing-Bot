@@ -1,0 +1,15 @@
+{
+  "name": "faye-housing",
+  "version": "1.0.0",
+  "description": "A tool for pinging a google home with an audio when a house is up",
+  "main": "casting.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joel Austin",
+  "license": "ISC",
+  "dependencies": {
+    "castv2-client": "^1.2.0",
+    "mdns": "^2.7.2"
+  }
+}

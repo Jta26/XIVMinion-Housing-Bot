@@ -360,6 +360,7 @@ function e_scanhousingwards:execute()
                 local totalHouseData = {locale = currentLocale.name, wardNumber = wardNumber, plotNumber = plotNumber, plotSize = plotSize, price = house.value}
                 local textmsg = "Open House Found:\nLocale: "..totalHouseData.locale.."\nSize: "..totalHouseData.plotSize.."\nWard: "..totalHouseData.wardNumber.."\nPlot: "..totalHouseData.plotNumber.."\nPrice: "..totalHouseData.price
                 d(textmsg)
+                HousingBotNetwork.AddHouse(totalHouseData)
                 if (not gCHReportSmalls) then
                     if (plotSize ~= "Small") then
                         HousingBotNetwork.SendDiscordMessage(textmsg)
@@ -367,7 +368,11 @@ function e_scanhousingwards:execute()
                 else
                     HousingBotNetwork.SendDiscordMessage(textmsg)
                 end
-                HousingBotNetwork.AddHouse(totalHouseData)
+                if (plotSize == "Medium") then
+                    local luamodpath = GetLuaModsPath();
+                    local filePath = luamodpath .. "FayeHousing\\node\\casting.js";
+                    p = io.popen("node ".. filePath);
+                end
                 table.insert(openHouses, totalHouseData)
             end
         end
@@ -406,7 +411,6 @@ function e_closehousingcontrols:execute()
         GetControl("SelectString"):Close()
     end
 end
-
 
 RegisterEventHandler("Module.Initalize",HousingBot.ModuleInit,"HousingBot.ModuleInit")
 RegisterEventHandler("Gameloop.Update",HousingBot.OnUpdate,"HousingBot.OnUpdate")
