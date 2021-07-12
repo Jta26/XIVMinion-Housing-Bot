@@ -377,10 +377,7 @@ function e_scanhousingwards:execute()
                 else
                     HousingBotNetwork.SendDiscordMessage(textmsg)
                 end
-                if (gCHAlertSmalls) then
-                    HousingBot.AlertGoogleHome()
-                end
-                if (plotSize == "Medium") then
+                if (plotSize ~= "Small" or gCHAlertSmalls) then
                     HousingBot.AlertGoogleHome()
                 end
                 table.insert(openHouses, totalHouseData)
